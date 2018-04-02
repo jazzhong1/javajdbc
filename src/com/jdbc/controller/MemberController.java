@@ -28,4 +28,15 @@ public class MemberController {
 		else 
 			new MemberView().displayError("실패");
 	}
+
+	public void selectOn(String str){
+			Member member=new MemberDao().selectOn(str);
+			if(member!=null ){
+				new MemberView().displaym(member);
+			}
+			else 
+				new MemberView().displayError("실패");
+		
+	}
+	
 }

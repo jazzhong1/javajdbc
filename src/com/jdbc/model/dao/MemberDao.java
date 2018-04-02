@@ -45,6 +45,50 @@ public class MemberDao {
 		return result;
 	}// method 끝
 
+	public Member selectOn(String str){
+		
+		
+		Connection conn=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+		Member member=null;
+		String sql="select * from member where member_id='"+str+"'";
+		
+		try {
+			conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "student", "student");
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			
+				rs.next();
+				member=new Member();
+				member.setMemberId(rs.getString("MEMBER_ID"));
+				member.setMemberPwd(rs.getString("MEMBER_PWD"));
+				member.setMemberName(rs.getString("MEMBER_NAME"));
+				member.setGender(rs.getString("GENDER").charAt(0));
+				member.setAge(rs.getInt("AGE"));
+				member.setEmail(rs.getString("EMAIL"));
+				member.setPhone(rs.getString("PHONE"));
+				member.setAddress(rs.getString("ADDRESS"));
+				member.setHobby(rs.getString("HOBBY"));
+				member.setEnrollDate(rs.getDate("ENROLL_DATE"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		
+		
+		return member;
+	}
+	
 	public ArrayList<Member> selectAll() {
 		
 		ArrayList<Member> list=null;
@@ -57,11 +101,14 @@ public class MemberDao {
 		try {
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "student", "student");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "student", "student");	
+																//@~~데이터베이스 IP주소이다.
+																//127.0.0.1 은 localhost와 같다.
 
 			stmt=conn.createStatement();
 			rs=stmt.executeQuery(sql);
 			list= new ArrayList<Member>();
+			
 			
 			while (rs.next()) {
 				
@@ -96,5 +143,8 @@ public class MemberDao {
 		
 		
 	}
+
+	
+
 
 }
