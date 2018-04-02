@@ -1,6 +1,10 @@
 package com.jdbc.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.jdbc.controller.MemberController;
+import com.jdbc.model.vo.Member;
 
 public class MemberView {
 	
@@ -14,7 +18,9 @@ public class MemberView {
 		System.out.println("===================");
 		do{
 			
+			
 			System.out.println("0. DB연결정보확인");
+			System.out.println("1. 전체회원조회");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("입력: ");
 			choice=sc.nextInt();
@@ -22,6 +28,10 @@ public class MemberView {
 			
 			switch (choice) {
 			case 0:
+				new MemberController().connectDB();
+				break;
+			case 1:
+				new MemberController().selectAll();
 				break;
 				
 			case 9:
@@ -33,6 +43,24 @@ public class MemberView {
 			}
 			
 		}while(true);
+	}
+
+
+	public void displayError(String msg) {
+		System.out.println(msg);
+	}
+
+	public void displaySuccess(String msg) {
+			System.out.println(msg);
+		
+	}
+
+	public void displayList(ArrayList<Member> list) {
+		System.out.println("================================================== 회원 조회결과 =====================================================\n");
+		System.out.println("아이디\t이름\t성별\t나이 \t이메일\t전화번호\t\t주소\t\t\t취미\t\t가입일");
+		for(Member m: list){
+			System.out.println(m);
+		}	
 	}
 	
 }
