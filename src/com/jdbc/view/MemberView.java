@@ -23,6 +23,7 @@ public class MemberView {
 			System.out.println("2. 회원정보조회");
 			System.out.println("3. 회원가입");
 			System.out.println("4. 회원정보수정");
+			System.out.println("5. 회원삭제 ");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("입력: ");
 			choice=sc.nextInt();
@@ -45,6 +46,10 @@ public class MemberView {
 				
 			case 4:
 				new MemberController().updateMember();
+				break;
+				
+			case 5:
+				new MemberController().delectMember();
 				break;
 				
 			case 9:
@@ -127,8 +132,7 @@ public class MemberView {
 		Member member=new Member();
 		
 		System.out.println("=====회원정보입력======");
-		System.out.print("아이디 : ");
-		member.setMemberId(sc.nextLine());
+		member.setMemberId(this.find());
 		System.out.print("이름 : ");
 		member.setMemberName(sc.nextLine());
 		System.out.print("나이 : ");
@@ -141,7 +145,16 @@ public class MemberView {
 		System.out.print("주소 : ");
 		member.setAddress(sc.nextLine());
 		return member;
-		}
+	
+	}
+	
+	public String find(){
+		System.out.println("아이디:");
+		String str=sc.next();
+		return str;
+	}
+	
+	
 
 	
 	

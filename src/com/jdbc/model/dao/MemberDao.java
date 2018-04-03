@@ -208,5 +208,40 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public int deleteMember(String id){
+		Connection conn=null;
+		Statement stmt=null;
+		int result=0;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "student", "student");
+			String sql="delete from member where member_id='"+id+"'";
+			stmt=conn.createStatement();
+			result=stmt.executeUpdate(sql);
+			
+			if(result>0){
+				conn.commit();
+			}
+			else{
+				conn.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		
+		return result;
+	}
 
 }

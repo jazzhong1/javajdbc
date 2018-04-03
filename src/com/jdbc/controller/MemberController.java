@@ -55,5 +55,16 @@ public class MemberController {
 		}
 		
 	}
+	
+	public void delectMember(){
+		String id=new MemberView().find();
+		int result=new MemberDao().deleteMember(id);
+		if(result>0){
+			new MemberView().displaySuccess("성공");
+		}
+		else{
+			new MemberView().displayError("실패");
+		}
+	}
 
 }
