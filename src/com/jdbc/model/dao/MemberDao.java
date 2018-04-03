@@ -138,40 +138,67 @@ public class MemberDao {
 		}
 		return list;
 	}
-	
-	public int insertMember(Member member){
-		Connection conn=null;
-		Statement stmt=null;
-		int result=0;
-		String sql="insert into member values("
-					+"'"+member.getMemberId()+"', "
-					+"'"+member.getMemberPwd()+"',"
-					+"'"+member.getMemberName()+"',"
-					+"'"+member.getGender()+"',"
-					+member.getAge()+","
-					+"'"+member.getEmail()+"',"
-					+"'"+member.getPhone()+"',"
-					+"'"+member.getAddress()+"',"
-					+"'"+member.getHobby()+"',"
-					+"sysdate)";
+
+	public int insertMember(Member member) {
+		Connection conn = null;
+		Statement stmt = null;
+		int result = 0;
+		String sql = "insert into member values(" + "'" + member.getMemberId() + "', " + "'" + member.getMemberPwd()
+				+ "'," + "'" + member.getMemberName() + "'," + "'" + member.getGender() + "'," + member.getAge() + ","
+				+ "'" + member.getEmail() + "'," + "'" + member.getPhone() + "'," + "'" + member.getAddress() + "',"
+				+ "'" + member.getHobby() + "'," + "sysdate)";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "student", "student");
-			stmt=conn.createStatement();
-			result=stmt.executeUpdate(sql);
-			
-			if(result>0){
-				conn.commit();		//sql안날려도 commit,rollback 할수있다.
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+
+			if (result > 0) {
+				conn.commit(); // sql안날려도 commit,rollback 할수있다.
 			}
-			
-			else{
+
+			else {
 				conn.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
-		finally {
+		return result;
+	}
+
+	public int updateMember(Member member) {
+		Connection conn = null;
+		Statement stmt = null;
+		int result = 0;
+		String sql = "update member set member_name='" + member.getMemberName() + "'," 
+				+ "age='" + member.getAge()
+				+ "'," + "phone='" + member.getAddress() 
+				+ "' where member_id='" + member.getMemberId() + "'";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "student", "student");
+			stmt = conn.createStatement();
+			result = stmt.executeUpdate(sql);
+
+			if (result > 0) {
+				conn.commit(); // sql안날려도 commit,rollback 할수있다.
+			}
+
+			else {
+				conn.rollback();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			try {
 				stmt.close();
 				conn.close();

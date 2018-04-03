@@ -44,5 +44,16 @@ public class MemberController {
 			new MemberView().displayError("실패");
 		}
 	}
+	
+	public void updateMember(){
+		Member member=new MemberView().updateMember();
+		int result = new MemberDao().updateMember(member);
+		if (result > 0) {
+			new MemberView().displaySuccess("성공");
+		} else {
+			new MemberView().displayError("실패");
+		}
+		
+	}
 
 }

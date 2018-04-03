@@ -22,6 +22,7 @@ public class MemberView {
 			System.out.println("1. 전체회원조회");
 			System.out.println("2. 회원정보조회");
 			System.out.println("3. 회원가입");
+			System.out.println("4. 회원정보수정");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("입력: ");
 			choice=sc.nextInt();
@@ -40,6 +41,10 @@ public class MemberView {
 				break;
 			case 3:
 				new MemberController().insertMember();
+				break;
+				
+			case 4:
+				new MemberController().updateMember();
 				break;
 				
 			case 9:
@@ -86,7 +91,9 @@ public class MemberView {
 	
 
 
-	public Member inputMember() {	Member member=new Member();
+	public Member inputMember() {	
+		
+	Member member=new Member();
 	
 	System.out.println("=====회원정보입력======");
 	System.out.print("아이디 : ");
@@ -113,6 +120,28 @@ public class MemberView {
 	member.setEnrollDate(null);
 	return member;
 	}
+	
+	
+	public Member updateMember() {	
+		
+		Member member=new Member();
+		
+		System.out.println("=====회원정보입력======");
+		System.out.print("아이디 : ");
+		member.setMemberId(sc.nextLine());
+		System.out.print("이름 : ");
+		member.setMemberName(sc.nextLine());
+		System.out.print("나이 : ");
+		member.setAge(sc.nextInt());
+		sc.nextLine();	///앞에int가있을경우 이런 현상이 발생한다.
+						///굳이 사용하고 싶지 않을경우 next로 사용한다.
+	
+		System.out.print("전화번호 : ");
+		member.setPhone(sc.nextLine());
+		System.out.print("주소 : ");
+		member.setAddress(sc.nextLine());
+		return member;
+		}
 
 	
 	
