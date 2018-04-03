@@ -120,7 +120,7 @@ public class Member {
 	public String toString() {
 		
 		return memberId+"\t"+memberName+"\t"+gender+"\t"+age+"\t"
-				+email+"\t"+phone+"\t"+address+"\t"+hobby+"\t"+enrollDate;
+				+email+"\t\t"+phone+"\t"+address+"\t"+hobby+"\t"+enrollDate;
 	}
 	
 	
